@@ -7,7 +7,7 @@ import {
   TableContainer,
   TableHead,
 } from "@mui/material";
-import TableRowWrapper from "./TableRowWrapper";
+import TableRowWithHover from "./TableRowWithHover";
 
 export type CourseSequence = {
   sequence: number;
@@ -46,7 +46,7 @@ export function TableWithDynamicRowSpan(props: CourseTableProps) {
         }
       }
       const elementToAdd = (
-        <TableRowWrapper
+        <TableRowWithHover
           hasSequenceBeenMade={hasSequenceBeenMade}
           course={course}
           courseRowSpan={courseRowSpan}

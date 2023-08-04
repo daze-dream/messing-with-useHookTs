@@ -1,21 +1,21 @@
 import { TableRow, TableCell } from "@mui/material";
 import { CourseSequence } from "./TableWithDynamicRowSpan";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { useHover } from "usehooks-ts";
 
-type TableRowWrapperProps = {
+type TableRowWithHoverProps = {
   course: CourseSequence;
   hasSequenceBeenMade: boolean;
   courseRowSpan: number;
   hoverFunc: Function;
 };
 
-function TableRowWrapper({
+function TableRowWithHover({
   course,
   hasSequenceBeenMade,
   courseRowSpan,
   hoverFunc,
-}: TableRowWrapperProps): JSX.Element {
+}: TableRowWithHoverProps): JSX.Element {
   const hoverRef = useRef(null);
   const isHover = useHover(hoverRef);
   if (isHover) {
@@ -43,4 +43,4 @@ function TableRowWrapper({
   );
 }
 
-export default TableRowWrapper;
+export default TableRowWithHover;

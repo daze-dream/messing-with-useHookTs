@@ -4,10 +4,8 @@ import {
   CourseSequence,
   TableWithDynamicRowSpan,
 } from "./TableWithDynamicRowSpan";
-import { Button, Drawer, Paper } from "@mui/material";
+import { Button, Drawer } from "@mui/material";
 import { useRef, useState } from "react";
-import { useHover } from "usehooks-ts";
-//import ClickOutside from "./ClickOutsideDrawer";
 
 function App() {
   const ref = useRef(null);
