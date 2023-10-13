@@ -101,7 +101,7 @@ export function ComplexForm(): JSX.Element {
         <TextField
           error={!formState.isValidationCorrect && formState.validationTouched}
           helperText={
-            formState.isValidationCorrect
+            formState.isValidationCorrect || !formState.validationTouched
               ? " "
               : "Please enter the specified phrase"
           }
@@ -163,7 +163,8 @@ export function ClassicComplexForm(): JSX.Element {
             classicFormState.validationTouched
           }
           helperText={
-            classicFormState.isValidationCorrect
+            classicFormState.isValidationCorrect ||
+            !classicFormState.validationTouched
               ? " "
               : "Please enter the specified phrase"
           }
