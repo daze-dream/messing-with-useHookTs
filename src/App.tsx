@@ -6,7 +6,7 @@ import {
 } from "./TableWithDynamicRowSpan";
 import { Button, Drawer } from "@mui/material";
 import { useRef, useState } from "react";
-import ComplexForm from "./tryingReducers";
+import { ClassicComplexForm, ComplexForm } from "./tryingReducers";
 
 function App() {
   const ref = useRef(null);
@@ -59,7 +59,7 @@ function App() {
       <div
         id="page"
         style={{
-          height: "100vh",
+          height: "auto",
           width: "100%",
         }}
       >
@@ -87,8 +87,8 @@ function App() {
         </Button>
         <div>{hoveredItem}</div>
       </div>
-      <div></div>
       <ComplexForm></ComplexForm>
+      <ClassicComplexForm></ClassicComplexForm>
     </>
   );
 }

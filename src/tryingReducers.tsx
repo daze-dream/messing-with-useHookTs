@@ -1,7 +1,7 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { FormControl, FormLabel } from "@mui/material";
+import { FormControl, FormHelperText, FormLabel } from "@mui/material";
 
 const VALIDATION_FORM_STRING: string = "creamofthecrop";
 
@@ -48,7 +48,7 @@ function formReducer(previousState: FormData, action: FormAction): FormData {
   }
 }
 
-function ComplexForm(): JSX.Element {
+export function ComplexForm(): JSX.Element {
   const initialState: FormData = {
     email: "",
     password: "",
@@ -99,8 +99,12 @@ function ComplexForm(): JSX.Element {
           value={formState.password}
         ></TextField>
         <TextField
-          error={!formState.isValidationCorrect}
-          helperText={ !formState.isValidationCorrect && "Please enter the specified phrase"}
+          error={!formState.isValidationCorrect && formState.validationTouched}
+          helperText={
+            formState.isValidationCorrect
+              ? " "
+              : "Please enter the specified phrase"
+          }
           label={"Type 'creamofthecrop'"}
           onChange={(e) => handleValidationFieldChanged(e)}
           value={formState.validation}
@@ -110,4 +114,64 @@ function ComplexForm(): JSX.Element {
   );
 }
 
-export default ComplexForm;
+export function ClassicComplexForm(): JSX.Element {
+  const [classicFormState, setFormState] = useState<FormData>({
+    username: "",
+    password: "",
+    email: "",
+    validation: "",
+    isValidationCorrect: false,
+    validationTouched: false,
+  });
+
+  function handleFieldChanged(field: keyof FormData, value: string) {
+    setFormState({
+      ...classicFormState,
+      [field]: value,
+    });
+  }
+
+  function handleValidationFieldChanged(value: string) {
+    setFormState({
+      ...classicFormState,
+      validation: value,
+      validationTouched: true,
+      isValidationCorrect: value === VALIDATION_FORM_STRING,
+    });
+  }
+  return (
+    <div>
+      <FormControl>
+        <TextField
+          label={"Email"}
+          onChange={(e) => handleFieldChanged("email", e.target.value)}
+          value={classicFormState.email}
+        ></TextField>
+        <TextField
+          label={"Username"}
+          onChange={(e) => handleFieldChanged("username", e.target.value)}
+          value={classicFormState.username}
+        ></TextField>
+        <TextField
+          label={"Password"}
+          onChange={(e) => handleFieldChanged("password", e.target.value)}
+          value={classicFormState.password}
+        ></TextField>
+        <TextField
+          error={
+            !classicFormState.isValidationCorrect &&
+            classicFormState.validationTouched
+          }
+          helperText={
+            classicFormState.isValidationCorrect
+              ? " "
+              : "Please enter the specified phrase"
+          }
+          label={"Type 'creamofthecrop'"}
+          onChange={(e) => handleValidationFieldChanged(e.target.value)}
+          value={classicFormState.validation}
+        ></TextField>
+      </FormControl>
+    </div>
+  );
+}
