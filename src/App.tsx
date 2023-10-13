@@ -6,6 +6,7 @@ import {
 } from "./TableWithDynamicRowSpan";
 import { Button, Drawer } from "@mui/material";
 import { useRef, useState } from "react";
+import ComplexForm from "./tryingReducers";
 
 function App() {
   const ref = useRef(null);
@@ -86,6 +87,8 @@ function App() {
         </Button>
         <div>{hoveredItem}</div>
       </div>
+      <div></div>
+      <ComplexForm></ComplexForm>
     </>
   );
 }
