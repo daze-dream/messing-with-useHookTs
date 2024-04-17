@@ -1,94 +1,124 @@
 import { useBoolean, useOnClickOutside } from "usehooks-ts";
 import "./App.css";
 import {
-  CourseSequence,
-  TableWithDynamicRowSpan,
-} from "./TableWithDynamicRowSpan";
-import { Button, Drawer } from "@mui/material";
-import { useRef, useState } from "react";
-import { ClassicComplexForm, ComplexForm } from "./tryingReducers";
+  AppBar,
+  Box,
+  Button,
+  Divider,
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Toolbar,
+  Typography,
+} from "@mui/material";
+import CustomDrawer from "./CustomDrawer";
+import { RouterProvider } from "react-router-dom";
+import router from "./routes";
+
+// import {
+//   BrowserRouter as Router,
+//   Switch,
+//   Route,
+//   Link
+// } from "react-router-dom";
 
 function App() {
-  const ref = useRef(null);
-  const [hoveredItem, setHoveredItem] = useState<string>(
-    "Hover over something"
-  );
-  const mockData: CourseSequence[] = [
-    {
-      sequence: 1,
-      courseId: "Synthetic Goblins",
-      credits: "1",
-      sharedPathways: 1,
-    },
-    {
-      sequence: 2,
-      courseId: "How to Burn Villages 101",
-      credits: "2",
-      sharedPathways: 1,
-    },
-    {
-      sequence: 2,
-      courseId: "Raiding and Looting 101",
-      credits: "1",
-      sharedPathways: 1,
-    },
-    {
-      sequence: 3,
-      courseId: "Standardized Equipment Studies",
-      credits: "1",
-      sharedPathways: 1,
-    },
-    {
-      sequence: 4,
-      courseId: "Rudimentary Mathematics",
-      credits: "1",
-      sharedPathways: 1,
-    },
-  ];
-  const handleClickOutside = (e: any) => {
-    console.log(`sheesh ${e.target.id}`, e);
-    if (e.target.id === "page") {
-      drawerBoolean.setFalse();
-    }
-  };
-  useOnClickOutside(ref, handleClickOutside);
+  // const nav = useNavigate();
+  const drawerWidth = 240;
+
   const drawerBoolean = useBoolean(false);
 
   return (
     <>
-      <div
-        id="page"
-        style={{
-          height: "auto",
-          width: "100%",
-        }}
-      >
-        <TableWithDynamicRowSpan
-          courseData={mockData}
-          hoverFunc={setHoveredItem}
-        />
-        <Drawer
-          ref={ref}
-          open={drawerBoolean.value}
-          PaperProps={{
-            style: {
-              height: "100%",
-              width: "70%",
-            },
+      <div id="base" style={{ display: "flex" }}>
+        <CustomDrawer
+          isOpen={drawerBoolean.value}
+          onClose={() => drawerBoolean.setFalse()}
+        ></CustomDrawer>
+        <AppBar
+          id="appbar"
+          position="fixed"
+          sx={{
+            zIndex: (theme) => theme.zIndex.drawer + 1,
           }}
-          onClose={drawerBoolean.setFalse}
-          variant="persistent"
-          anchor="right"
         >
-          <div>SHEEESH</div>
-        </Drawer>
-        <Button onClick={drawerBoolean.toggle}>
-          {drawerBoolean.value ? "close" : "open"}
-        </Button>
-        <div>{hoveredItem}</div>
+          <Toolbar>
+            <Button
+              variant="text"
+              sx={{ color: "black", outline: "none" }}
+              onClick={() => router.navigate("/")}
+            >
+              <Typography variant="h6" noWrap component="div">
+                An App For Your Troubles 😮
+              </Typography>
+            </Button>
+          </Toolbar>
+        </AppBar>
+        <div style={{ display: "flex" }}>
+          <Drawer
+            variant="permanent"
+            sx={{
+              width: drawerWidth,
+              flexShrink: 0,
+              [`& .MuiDrawer-paper`]: {
+                width: drawerWidth,
+                boxSizing: "border-box",
+              },
+            }}
+          >
+            <Toolbar />
+            <Box sx={{ overflow: "auto" }}>
+              <List>
+                <ListItem disablePadding>
+                  <ListItemButton
+                    onClick={() => router.navigate("/basic_forms")}
+                  >
+                    <ListItemText primary={"Basic Forms"} />
+                  </ListItemButton>
+                </ListItem>
+
+                <ListItem disablePadding>
+                  <ListItemButton
+                    onClick={() => router.navigate("/table_crap")}
+                  >
+                    <ListItemText primary={"Messing with Tables"} />
+                  </ListItemButton>
+                </ListItem>
+              </List>
+              <Divider />
+              <div
+                style={{
+                  marginTop: `auto`,
+                  position: "fixed",
+                  bottom: 0,
+                  textAlign: "center",
+                  paddingBottom: 10,
+                }}
+              >
+
+                <button
+                  id="drawer-toggle"
+                  onClick={() => {
+                    console.log("list item clicked");
+                    drawerBoolean.toggle();
+                  }}
+                >
+                  {drawerBoolean.value ? "Close Drawer" : "Open Drawer"}{" "}
+                </button>
+              </div>
+            </Box>
+          </Drawer>
+          <Box
+            data-testid="blargh"
+            component="main"
+            sx={{ flexGrow: 1, marginTop: "50px" }}
+          >
+            <RouterProvider router={router} />
+          </Box>
+        </div>
       </div>
-      <ComplexForm></ComplexForm>
-      <ClassicComplexForm></ClassicComplexForm>
     </>
   );
 }

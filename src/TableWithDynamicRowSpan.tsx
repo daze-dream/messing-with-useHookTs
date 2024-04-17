@@ -8,21 +8,18 @@ import {
   TableHead,
 } from "@mui/material";
 import TableRowWithHover from "./TableRowWithHover";
-
-export type CourseSequence = {
-  sequence: number;
-  courseId: string;
-  credits: string;
-  sharedPathways: number;
-};
+import { CourseSequence } from "./data/CourseSequence";
+import { useState } from "react";
 
 export type CourseTableProps = {
   courseData: CourseSequence[];
-  hoverFunc: Function;
 };
 
 export function TableWithDynamicRowSpan(props: CourseTableProps) {
-  const { courseData, hoverFunc } = props;
+  const [hoveredItem, setHoveredItem] = useState<string>(
+    "Hover over something"
+  );
+  const { courseData } = props;
   const sequenceAndSpanSize = new Map<number, number>();
   courseData.forEach((course) => {
     const found = sequenceAndSpanSize.get(course.sequence);
@@ -50,25 +47,28 @@ export function TableWithDynamicRowSpan(props: CourseTableProps) {
           hasSequenceBeenMade={hasSequenceBeenMade}
           course={course}
           courseRowSpan={courseRowSpan}
-          hoverFunc={hoverFunc}
+          hoverFunc={setHoveredItem}
         />
       );
       rowElements.push(elementToAdd);
     }
   });
   return (
-    <TableContainer component={Paper}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Sequence</TableCell>
-            <TableCell>CourseId</TableCell>
-            <TableCell>Credits</TableCell>
-            <TableCell>Shared Pathways</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>{...rowElements}</TableBody>
-      </Table>
-    </TableContainer>
+    <div>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Sequence</TableCell>
+              <TableCell>CourseId</TableCell>
+              <TableCell>Credits</TableCell>
+              <TableCell>Shared Pathways</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>{...rowElements}</TableBody>
+        </Table>
+      </TableContainer>
+      <div>{hoveredItem}</div>
+    </div>
   );
 }

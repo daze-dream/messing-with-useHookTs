@@ -1,7 +1,12 @@
 import React, { useReducer, useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { FormControl, FormHelperText, FormLabel } from "@mui/material";
+import {
+  FormControl,
+  FormGroup,
+  FormHelperText,
+  FormLabel,
+} from "@mui/material";
 
 const VALIDATION_FORM_STRING: string = "creamofthecrop";
 
@@ -81,34 +86,42 @@ export function ComplexForm(): JSX.Element {
     });
   }
   return (
-    <div>
-      <FormControl>
-        <TextField
-          label={"Email"}
-          onChange={(e) => handleTextFieldChange("email", e)}
-          value={formState.email}
-        ></TextField>
-        <TextField
-          label={"Username"}
-          onChange={(e) => handleTextFieldChange("username", e)}
-          value={formState.username}
-        ></TextField>
-        <TextField
-          label={"Password"}
-          onChange={(e) => handleTextFieldChange("password", e)}
-          value={formState.password}
-        ></TextField>
-        <TextField
-          error={!formState.isValidationCorrect && formState.validationTouched}
-          helperText={
-            formState.isValidationCorrect || !formState.validationTouched
-              ? " "
-              : "Please enter the specified phrase"
-          }
-          label={"Type 'creamofthecrop'"}
-          onChange={(e) => handleValidationFieldChanged(e)}
-          value={formState.validation}
-        ></TextField>
+    <div style={{
+      width: '900px'
+    }}>
+      <FormControl sx={{width: '100%'}}>
+        <div style={{ display: "flex", flexDirection: "column", flexGrow: 1, gap: '20px'}}>
+          <TextField
+            label={"Email"}
+            onChange={(e) => handleTextFieldChange("email", e)}
+            value={formState.email}
+          ></TextField>
+          {/* <div style={{ paddingTop: "20px" }}> */}{" "}
+          <TextField
+            label={"Username"}
+            onChange={(e) => handleTextFieldChange("username", e)}
+            value={formState.username}
+          ></TextField>
+          {/* </div> */}
+          <TextField
+            label={"Password"}
+            onChange={(e) => handleTextFieldChange("password", e)}
+            value={formState.password}
+          ></TextField>
+          <TextField
+            error={
+              !formState.isValidationCorrect && formState.validationTouched
+            }
+            helperText={
+              formState.isValidationCorrect || !formState.validationTouched
+                ? " "
+                : "Please enter the specified phrase"
+            }
+            label={"Type 'creamofthecrop'"}
+            onChange={(e) => handleValidationFieldChanged(e)}
+            value={formState.validation}
+          ></TextField>
+        </div>
       </FormControl>
     </div>
   );
