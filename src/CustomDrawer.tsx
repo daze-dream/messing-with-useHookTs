@@ -16,7 +16,7 @@ function CustomDrawer({
   }, [isOpen])
 
   const handleClickOutside = (e: any) => {
-    console.log(`sheeshzz ${e.target.id}`, e);
+    // console.log(`sheeshzz ${e.target.id}`, e);
     if (e.target.id !== "drawer-toggle") {
       onClose();
     }

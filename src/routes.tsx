@@ -3,11 +3,16 @@ import { TableWithDynamicRowSpan } from "./TableWithDynamicRowSpan";
 import { mockData } from "./data/CourseSequence";
 import ClippedDrawer from "./temp";
 import { ComplexForm } from "./tryingReducers";
+import BigForm from "./AnForm";
 
 const router = createBrowserRouter([
   {
     path: "/basic_forms",
     element: <ComplexForm />,
+  },
+  {
+    path: "/anForm",
+    element: <BigForm />,
   },
   {
     path: "/",

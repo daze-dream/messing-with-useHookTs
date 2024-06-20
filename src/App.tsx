@@ -1,4 +1,4 @@
-import { useBoolean, useOnClickOutside } from "usehooks-ts";
+import { useBoolean } from "usehooks-ts";
 import "./App.css";
 import {
   AppBar,
@@ -78,7 +78,13 @@ function App() {
                     <ListItemText primary={"Basic Forms"} />
                   </ListItemButton>
                 </ListItem>
-
+                <ListItem disablePadding>
+                  <ListItemButton
+                    onClick={() => router.navigate("/anForm")}
+                  >
+                    <ListItemText primary={"React Form Hooks"} />
+                  </ListItemButton>
+                </ListItem>
                 <ListItem disablePadding>
                   <ListItemButton
                     onClick={() => router.navigate("/table_crap")}
