@@ -139,7 +139,7 @@ function BigForm() {
                 switch (watchDataType.value) {
                   case "object":
                   case "string":
-                    return <TextField {...c.field} />;
+                    return <TextField {...c.field} variant="outlined" error={!!formHook.formState.errors.defaultValue} helperText={ formHook.formState.errors.defaultValue ? 'Invalid JSON object' : ''} />;
 
                   case "number":
                     // <input type="number"/>
@@ -160,15 +160,15 @@ function BigForm() {
                           control={<Radio />}
                           label="False"
                         />
-                        {/* <FormControlLabel
+                        <FormControlLabel
                           value={undefined}
                           control={<Radio />}
                           label="None"
-                        /> */}
+                        />
                       </RadioGroup>
                     );
                   case "date":
-                    return <ReactDatePicker {...c.field} />;
+                    return <ReactDatePicker {...c.field} selected={c.field.value} />;
                 }
               }}
             />
