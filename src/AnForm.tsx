@@ -3,8 +3,6 @@ import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import ReactDatePicker from "react-datepicker";
-
-import { Unstable_NumberInput as NumberInput } from "@mui/base/Unstable_NumberInput";
 import React from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import "react-datepicker/dist/react-datepicker.css";
@@ -145,7 +143,9 @@ function BigForm() {
 
                   case "number":
                     // <input type="number"/>
-                    return <NumberInput {...c.field} />;
+                    // return <NumberInput {...c.field} />;
+                    return <TextField  type="number" {...c.field} />;
+
                   case "boolean":
                     return (
                       <RadioGroup {...c.field} aria-label="true-false">
